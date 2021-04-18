@@ -3,7 +3,7 @@ Termux QEMU package with SPICE support , includes qemu-system-aarch64, qemu-syst
 
 Only For Android ARM64
 
-Note : Before installing these, make sure you have removed qemu provided by termux if installed
+# Note : Before installing these, make sure you have removed qemu provided by termux if installed
 
 # How to install this packages ?
 1) pkg update && pkg upgrade
