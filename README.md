@@ -1,5 +1,6 @@
 # QEMU-Termux
 Termux QEMU package with SPICE support , includes qemu-system-aarch64, qemu-system-i386, qemu-system-x86_64
+without chroot/proot
 
 Only For Android ARM64
 
