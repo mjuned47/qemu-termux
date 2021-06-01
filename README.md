@@ -2,9 +2,8 @@
 Termux QEMU package with SPICE support , includes qemu-system-i386, qemu-system-x86_64
 without chroot/proot
 # QEMU-4.2
-Only For Android ARM64
 
-# Note : Before installing these, make sure you have removed qemu provided by termux if installed
+# Note : Before installing these, make sure you have removed old qemu-spice which was provided by me if installed
 
 # How to install this packages ?
 1) pkg update && pkg upgrade
