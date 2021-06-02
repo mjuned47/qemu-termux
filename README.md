@@ -4,7 +4,7 @@ without chroot/proot
 
 # Note : Required Android 7 or more
 
-How to install this packages ?
+# How to install this packages ?
 1) pkg update && pkg upgrade
 2) Download these packages(.deb) from Releases and enable storage permission of termux
 3) apt install /sdcard/Download/liborc-0.4.32_aarch64.deb
