@@ -1,10 +1,10 @@
 # QEMU-Termux 
-Termux QEMU package with SPICE support , includes qemu-system-i386, qemu-system-x86_64
-without chroot/proot
+Termux QEMU package with SPICE support without chroot/proot
 
 # Note : Required Android 7 or more
 
 # How to install this packages ?
+
 1) pkg update && pkg upgrade
 2) Download these packages(.deb) from Releases and enable storage permission of termux
 3) apt install /sdcard/Download/liborc-0.4.32_aarch64.deb
@@ -13,9 +13,9 @@ without chroot/proot
    
    apt install /sdcard/Download/qemu-system-*
 
-# Details about Packages : 
-1) qemu-system-aarch64 provide qemu-system-aarch64 and qemu-system-arm
-2) qemu-system-x86-64 provide qemu-system-x86_64 and qemu-system-i386
+# QEMU Supported architecture list :
+  Android ARM64 : i386,x86_64,riscv32,riscv64,arm,aarch64,sparc,sparc64,ppc,ppc64
+  Android armv7l/arm : i386,x86_64
 
 # How to use spice with qemu ?
  1) Install aSPICE client from playstore :
