@@ -11,7 +11,11 @@ without chroot/proot
    
    apt install /sdcard/Download/libspice-server-0.14.91_aarch64.deb
    
-   apt install /sdcard/Download/qemu-system-x86-64-4.2_aarch64.deb
+   apt install /sdcard/Download/qemu-system-*
+
+# Details about Packages : 
+1) qemu-system-aarch64 provide qemu-system-aarch64 and qemu-system-arm
+2) qemu-system-x86-64 provide qemu-system-x86_64 and qemu-system-i386
 
 # How to use spice with qemu ?
  1) Install aSPICE client from playstore :
