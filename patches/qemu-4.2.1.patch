@@ -1,0 +1,42 @@
+diff -uNr qemu-4.2.1-orig/audio/ossaudio.c qemu-4.2.1/audio/ossaudio.c
+--- qemu-4.2.1-orig/audio/ossaudio.c	2021-06-05 11:22:16.903601211 +0000
++++ qemu-4.2.1/audio/ossaudio.c	2021-06-05 11:26:03.554293864 +0000
+@@ -24,7 +24,7 @@
+ 
+ #include "qemu/osdep.h"
+ #include <sys/ioctl.h>
+-#include <sys/soundcard.h>
++#include <linux/soundcard.h>
+ #include "qemu/main-loop.h"
+ #include "qemu/module.h"
+ #include "qemu/host-utils.h"
+diff -uNr qemu-4.2.1-orig/configure qemu-4.2.1/configure
+--- qemu-4.2.1-orig/configure	2021-06-05 11:22:01.386594748 +0000
++++ qemu-4.2.1/configure	2021-06-05 11:25:39.872759634 +0000
+@@ -576,7 +576,7 @@
+ nm="${NM-${cross_prefix}nm}"
+ strip="${STRIP-${cross_prefix}strip}"
+ windres="${WINDRES-${cross_prefix}windres}"
+-pkg_config_exe="${PKG_CONFIG-${cross_prefix}pkg-config}"
++pkg_config_exe="${PKG_CONFIG-pkg-config}"
+ query_pkg_config() {
+     "${pkg_config_exe}" ${QEMU_PKG_CONFIG_FLAGS} "$@"
+ }
+@@ -3552,7 +3552,7 @@
+   return conv != (iconv_t) -1;
+ }
+ EOF
+-  iconv_prefix_list="/usr/local:/usr"
++  iconv_prefix_list="/data/data/com.termux/files/usr"
+   iconv_lib_list=":-liconv"
+   IFS=:
+   for iconv_prefix in $iconv_prefix_list; do
+@@ -6186,7 +6186,7 @@
+ 
+ # We can only support ivshmem if we have eventfd
+ if [ "$eventfd" = "yes" ]; then
+-  ivshmem=yes
++  ivshmem=no
+ fi
+ 
+ tools=""
