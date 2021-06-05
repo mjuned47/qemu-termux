@@ -1,0 +1,108 @@
+diff -uNr spice-0.14.91-orig/meson.build spice-0.14.91/meson.build
+--- spice-0.14.91-orig/meson.build	2021-06-05 11:12:35.476731566 +0000
++++ spice-0.14.91/meson.build	2021-06-05 11:14:13.339077220 +0000
+@@ -104,7 +104,7 @@
+ endforeach
+ 
+ if host_machine.system() != 'windows'
+-  foreach dep : ['rt', 'm']
++  foreach dep : ['c', 'm'] 
+     spice_server_deps += compiler.find_library(dep)
+   endforeach
+ else
+@@ -208,7 +208,7 @@
+ # Subdirectories
+ #
+ subdir('server')
+-subdir('tools')
++#subdir('tools')
+ subdir('docs')
+ 
+ #
+@@ -229,4 +229,4 @@
+ configure_file(output : 'config.h',
+                configuration : spice_server_config_data)
+ 
+-run_target('doxy', command : './doxygen.sh')
++run_target('doxy', command : 'doxygen')     
+diff -uNr spice-0.14.91-orig/server/red-stream.h spice-0.14.91/server/red-stream.h
+--- spice-0.14.91-orig/server/red-stream.h	2021-06-05 11:12:35.508733641 +0000
++++ spice-0.14.91/server/red-stream.h	2021-06-05 11:14:39.196754141 +0000
+@@ -19,7 +19,7 @@
+ #define RED_STREAM_H_
+ 
+ #include <openssl/ssl.h>
+-
++#include <netinet/in.h>
+ #include "spice-wrapped.h"
+ #include "red-common.h"
+ 
+diff -uNr spice-0.14.91-orig/server/stat-file.c spice-0.14.91/server/stat-file.c
+--- spice-0.14.91-orig/server/stat-file.c	2021-06-05 11:12:35.504733382 +0000
++++ spice-0.14.91/server/stat-file.c	2021-06-05 11:15:21.955531875 +0000
+@@ -31,6 +31,65 @@
+ 
+ #include "stat-file.h"
+ 
++static int shm_unlink(const char *name) {
++    size_t namelen;
++    char *fname;
++
++    /* Construct the filename.  */
++    while (name[0] == '/') ++name;
++
++    if (name[0] == '\0') {
++        /* The name "/" is not supported.  */
++        errno = EINVAL;
++        return -1;
++    }
++
++    namelen = strlen(name);
++    fname = (char *) alloca(sizeof("@TERMUX_PREFIX@/tmp/") - 1 + namelen + 1);
++    memcpy(fname, "@TERMUX_PREFIX@/tmp/", sizeof("@TERMUX_PREFIX@/tmp/") - 1);
++    memcpy(fname + sizeof("@TERMUX_PREFIX@/tmp/") - 1, name, namelen + 1);
++
++    return unlink(fname);
++}
++
++static int shm_open(const char *name, int oflag, mode_t mode) {
++    size_t namelen;
++    char *fname;
++    int fd;
++
++    /* Construct the filename.  */
++    while (name[0] == '/') ++name;
++
++    if (name[0] == '\0') {
++        /* The name "/" is not supported.  */
++        errno = EINVAL;
++        return -1;
++    }
++
++    namelen = strlen(name);
++    fname = (char *) alloca(sizeof("@TERMUX_PREFIX@/tmp/") - 1 + namelen + 1);
++    memcpy(fname, "@TERMUX_PREFIX@/tmp/", sizeof("@TERMUX_PREFIX@/tmp/") - 1);
++    memcpy(fname + sizeof("@TERMUX_PREFIX@/tmp/") - 1, name, namelen + 1);
++
++    fd = open(fname, oflag, mode);
++    if (fd != -1) {
++        /* We got a descriptor.  Now set the FD_CLOEXEC bit.  */
++        int flags = fcntl(fd, F_GETFD, 0);
++        flags |= FD_CLOEXEC;
++        flags = fcntl(fd, F_SETFD, flags);
++
++        if (flags == -1) {
++            /* Something went wrong.  We cannot return the descriptor.  */
++            int save_errno = errno;
++            close(fd);
++            fd = -1;
++            errno = save_errno;
++        }
++    }
++
++    return fd;
++}
++
+ #define STAT_SHM_SIZE(max_nodes) \
+     (sizeof(SpiceStat) + (max_nodes) * sizeof(SpiceStatNode))
+ 
