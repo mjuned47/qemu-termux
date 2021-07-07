@@ -15,9 +15,7 @@ Termux QEMU package with SPICE support without chroot/proot
 
 # QEMU Supported architecture list :
   Android ARM64 : i386,x86_64,riscv32,riscv64,arm,aarch64,sparc,sparc64,ppc,ppc64
-  
-  Android armv7l/arm : i386,x86_64
-
+ 
 # How to use spice with qemu ?
  1) Install aSPICE client from playstore :
   https://play.google.com/store/apps/details?id=com.iiordanov.freeaSPICE
