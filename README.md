@@ -20,5 +20,5 @@ Termux QEMU package with SPICE support without chroot/proot
  1) Install aSPICE client from playstore :
   https://play.google.com/store/apps/details?id=com.iiordanov.freeaSPICE
  2) In your qemu command line , remove -vnc and add 
-   -spice port=5900,disable-ticketing $@
+   -spice port=5900,disable-ticketing
  3) Now open aspice app and add address as 127.0.0.1 and port 5900
