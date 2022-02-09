@@ -1,0 +1,27 @@
+name: aSPICE Libraries
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@main
+      - name: Setup Termux Repository
+        run: |
+             git clone https://github.com/termux/termux-packages
+             cd termux-packages
+             ./scripts/setup-ubuntu.sh
+             ./scripts/setup-android-sdk.sh
+          
+      - name: Build QEMU Package
+        run: |
+          cd /home/runner/termux-packages
+          ./build-package.sh qemu-system-x86-64-headless
+
+      - name: Upload QEMU Package
+        uses: actions/upload-artifact@v2
+        with:
+           path: /home/runner/termux-packages/debs/qemu-system-*
