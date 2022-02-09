@@ -16,13 +16,13 @@ jobs:
           unzip commandlinetools-linux-7583922_latest.zip
           cd cmdline-tools && mkdir latest && mv bin lib source.properties NOTICE.txt latest
           export ANDROID_SDK=$HOME/android-sdk
-          ln -sf $ANDROID_SDK/cmdline-tools/latest/bin/sdkmanager $ANDROID_SDK/tools/bin/sdkmanager
           ln -sf $ANDROID_SDK/cmdline-tools/latest/bin $ANDROID_SDK/cmdline-tools/bin 
           yes | $ANDROID_SDK/cmdline-tools/latest/bin/sdkmanager --licenses
           $ANDROID_SDK/cmdline-tools/latest/bin/sdkmanager --sdk_root=/home/runner/android-sdk --install "cmake;3.18.1" "ndk;20.1.5948944" "platforms;android-21" "platforms;android-28" "platform-tools" "platforms;android-24"
           cd $HOME
       - name: Setup Termux Repository
         run: |
+             export ANDROID_SDK=$HOME/android-sdk
              git clone https://github.com/termux/termux-packages
              cd termux-packages
              ./scripts/setup-ubuntu.sh
