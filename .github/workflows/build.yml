@@ -13,6 +13,7 @@ jobs:
         run: |
              git clone https://github.com/termux/termux-packages
              cd termux-packages
+             /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager --install 'cmdline-tools;latest'
              ln -sf /usr/local/lib/android/sdk/cmdline-tools/latest/bin /usr/local/lib/android/sdk/cmdline-tools/bin
              ./scripts/setup-ubuntu.sh
              ./scripts/setup-android-sdk.sh
