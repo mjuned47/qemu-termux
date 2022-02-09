@@ -22,7 +22,7 @@ jobs:
           cd $HOME
       - name: Setup Termux Repository
         run: |
-             export ANDROID_SDK=$HOME/android-sdk
+             export ANDROID_HOME=$HOME/android-sdk
              git clone https://github.com/termux/termux-packages
              cd termux-packages
              ./scripts/setup-ubuntu.sh
