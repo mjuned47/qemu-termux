@@ -1,4 +1,4 @@
-name: aSPICE Libraries
+name: QEMU Termux Package
 
 on: 
   workflow_dispatch:
