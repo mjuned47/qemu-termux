@@ -9,6 +9,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@main
+      - name: Setup Server
+        run: |
+             sudo apt update && sudo apt upgrade -y
       - name: Setup Termux Repository
         run: |
              cd /home/runner && git clone https://github.com/termux/termux-packages
